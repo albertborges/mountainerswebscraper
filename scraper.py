@@ -45,7 +45,7 @@ def GetHtmlSource():
         )
         html = driver.page_source.encode('utf-8').strip()
     
-    finally:
+    except:
         html = None
 
     driver.quit()
