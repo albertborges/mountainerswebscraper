@@ -100,7 +100,7 @@ def RefreshActivitySetWithActivityArray(activityset, activities):
     for activity in activities:
         activityset.add(activity)
 
-def SendMailForAcitivities(activities, newactivities, username, password):
+def SendMailForAcitivities(activities, newactivities, username, password, target_email):
     try:  
         gmail_user = username 
         gmail_password = password
@@ -134,7 +134,7 @@ def SendMailForAcitivities(activities, newactivities, username, password):
 
         msg.attach(MIMEText(html, 'html'))
 
-        server.sendmail(gmail_user, gmail_user, msg.as_string())
+        server.sendmail(gmail_user, target_email, msg.as_string())
         server.close()
     except:  
         print 'Something went wrong...'
@@ -143,11 +143,13 @@ def SendMailForAcitivities(activities, newactivities, username, password):
 
 while True:
 
-    username = raw_input('Enter the email to receive notifications:')
+    username = raw_input('Enter the email to send notifications:')
 
     password = getpass.getpass('Enter your password for that email:')
 
     delay = raw_input('Enter the delay between pings in seconds:')
+
+    target_email = raw_input('Enter the email to send notifications:')
 
     activityset = set()
 
@@ -168,7 +170,7 @@ while True:
             RefreshActivitySetWithActivityArray(activityset, activities)
 
             print("Sending email to user to alert of new activities!")
-            SendMailForAcitivities(activities, newactivities, username, password)
+            SendMailForAcitivities(activities, newactivities, username, password, target_email)
     else:
         print("Unable to find any relevant html data for activities.")
 
