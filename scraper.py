@@ -174,6 +174,6 @@ while True:
 
     intdelay = int(delay)
     for i in xrange(intdelay,0,-1):
-        sys.stdout.write(str(i)+' seconds remaining until next request...')
+        sys.stdout.write(str(i)+' seconds remaining until next request...\n')
         sys.stdout.flush()
         time.sleep(1)
