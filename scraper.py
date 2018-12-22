@@ -41,7 +41,7 @@ def GetHtmlSource():
 
     try:
         WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CLASS_NAME, ".result-center"))
+            EC.presence_of_element_located((By.CLASS_NAME, "result-center"))
         )
         html = driver.page_source.encode('utf-8').strip()
     
@@ -148,19 +148,22 @@ activityset = set()
 print("Acquiring html data from mountaineers.org...")
 html = GetHtmlSource()
 
-print("Parsing html data...")
-activities = ParseHtmlAndGenerateActivityTuples(html)
+if html is not None:
+    print("Parsing html data...")
+    activities = ParseHtmlAndGenerateActivityTuples(html)
 
-print("There were " + str(len(activities)) + " results found from parsing!")
+    print("There were " + str(len(activities)) + " results found from parsing!")
 
-newactivities = FNewActivitiesFound(activityset, activities)
+    newactivities = FNewActivitiesFound(activityset, activities)
 
-print("There were " + str(len(newactivities)) + " NEW results found!")
+    print("There were " + str(len(newactivities)) + " NEW results found!")
 
-if len(newactivities) > 0:
-    RefreshActivitySetWithActivityArray(activityset, activities)
+    if len(newactivities) > 0:
+        RefreshActivitySetWithActivityArray(activityset, activities)
 
-    print("Sending email to user to alert of new activities!")
-    SendMailForAcitivities(activities, newactivities, username, password)
+        print("Sending email to user to alert of new activities!")
+        SendMailForAcitivities(activities, newactivities, username, password)
+else:
+    print("Unable to find any relevant html data for activities.")
 
 time.sleep(int(delay))
