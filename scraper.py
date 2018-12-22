@@ -45,6 +45,8 @@ def ParseHtmlAndGenerateActivityTuples(html):
     results = soup.find_all('div', class_='result-center')
     activities = []
 
+    print(results)
+
     for result in results:
         # Extract title
         title = result.find_all('a')
