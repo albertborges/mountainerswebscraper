@@ -105,8 +105,6 @@ def SendMailForAcitivities(activities, newactivities, username, password):
         gmail_user = username 
         gmail_password = password
 
-        print(gmail_password)
-
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.ehlo()
         server.starttls()
@@ -174,7 +172,7 @@ while True:
     else:
         print("Unable to find any relevant html data for activities.")
 
-    for i in xrange(delay,0,-1):
+    for i in xrange((int)delay,0,-1):
         sys.stdout.write(str(i)+' seconds remaining until next request...')
         sys.stdout.flush()
         time.sleep(1)
