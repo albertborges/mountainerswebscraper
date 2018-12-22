@@ -1,0 +1,2 @@
+tmux new -s mywindow
+tmux a -t mywindow
