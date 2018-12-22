@@ -33,8 +33,18 @@ def GetHtmlSource():
     chrome_options.add_argument('--disable-gpu')
 
     driver = webdriver.Chrome("/home/ubuntu/mountainerswebscraper/linux/chromedriver", chrome_options=chrome_options)
+    
     driver.get(url)
-    html = driver.page_source.encode('utf-8').strip()
+
+    try:
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.Class, ".result-center"))
+        )
+        html = driver.page_source.encode('utf-8').strip()
+    
+    finally:
+        html = None
+
     driver.quit()
 
     return html
@@ -44,8 +54,6 @@ def ParseHtmlAndGenerateActivityTuples(html):
     soup = BeautifulSoup(html, 'html.parser')
     results = soup.find_all('div', class_='result-center')
     activities = []
-
-    print(results)
 
     for result in results:
         # Extract title
