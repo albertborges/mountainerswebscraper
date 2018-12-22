@@ -32,7 +32,7 @@ def GetHtmlSource():
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
 
-    driver = webdriver.Chrome("/Users/albertborges/Downloads/chromedriver", chrome_options=chrome_options)
+    driver = webdriver.Chrome("/home/ubuntu/mountainerswebscraper/linux/chromedriver", chrome_options=chrome_options)
     driver.get(url)
     html = driver.page_source.encode('utf-8').strip()
     driver.quit()
@@ -150,5 +150,4 @@ if len(newactivities) > 0:
     print("Sending email to user to alert of new activities!")
     SendMailForAcitivities(activities, newactivities, username, password)
 
-time.sleep(delay)
-
+time.sleep(int(delay))
