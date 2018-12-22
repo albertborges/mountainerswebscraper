@@ -1,3 +1,7 @@
+#!/usr/bin/python
+
+import sys
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
@@ -101,6 +105,8 @@ def SendMailForAcitivities(activities, newactivities, username, password):
         gmail_user = username 
         gmail_password = password
 
+        print(gmail_password)
+
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.ehlo()
         server.starttls()
@@ -137,33 +143,38 @@ def SendMailForAcitivities(activities, newactivities, username, password):
 
 # Code execution starts here
 
-username = raw_input('Enter the email to receive notifications:')
+while True:
 
-password = getpass.getpass('Enter your password for that email:')
+    username = raw_input('Enter the email to receive notifications:')
 
-delay = raw_input('Enter the delay between pings in seconds:')
+    password = getpass.getpass('Enter your password for that email:')
 
-activityset = set()
+    delay = raw_input('Enter the delay between pings in seconds:')
 
-print("Acquiring html data from mountaineers.org...")
-html = GetHtmlSource()
+    activityset = set()
 
-if html is not None:
-    print("Parsing html data...")
-    activities = ParseHtmlAndGenerateActivityTuples(html)
+    print("Acquiring html data from mountaineers.org...")
+    html = GetHtmlSource()
 
-    print("There were " + str(len(activities)) + " results found from parsing!")
+    if html is not None:
+        print("Parsing html data...")
+        activities = ParseHtmlAndGenerateActivityTuples(html)
 
-    newactivities = FNewActivitiesFound(activityset, activities)
+        print("There were " + str(len(activities)) + " results found from parsing!")
 
-    print("There were " + str(len(newactivities)) + " NEW results found!")
+        newactivities = FNewActivitiesFound(activityset, activities)
 
-    if len(newactivities) > 0:
-        RefreshActivitySetWithActivityArray(activityset, activities)
+        print("There were " + str(len(newactivities)) + " NEW results found!")
 
-        print("Sending email to user to alert of new activities!")
-        SendMailForAcitivities(activities, newactivities, username, password)
-else:
-    print("Unable to find any relevant html data for activities.")
+        if len(newactivities) > 0:
+            RefreshActivitySetWithActivityArray(activityset, activities)
 
-time.sleep(int(delay))
+            print("Sending email to user to alert of new activities!")
+            SendMailForAcitivities(activities, newactivities, username, password)
+    else:
+        print("Unable to find any relevant html data for activities.")
+
+    for i in xrange(delay,0,-1):
+        sys.stdout.write(str(i)+' seconds remaining until next request...')
+        sys.stdout.flush()
+        time.sleep(1)
