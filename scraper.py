@@ -41,7 +41,7 @@ def GetHtmlSource():
 
     try:
         WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.Class, ".result-center"))
+            EC.presence_of_element_located((By.CLASS_NAME, ".result-center"))
         )
         html = driver.page_source.encode('utf-8').strip()
     
