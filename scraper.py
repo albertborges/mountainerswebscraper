@@ -173,7 +173,7 @@ while True:
         print("Unable to find any relevant html data for activities.")
 
     intdelay = int(delay)
-    for i in xrange((intdelay,0,-1):
+    for i in xrange(intdelay,0,-1):
         sys.stdout.write(str(i)+' seconds remaining until next request...')
         sys.stdout.flush()
         time.sleep(1)
