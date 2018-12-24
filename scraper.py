@@ -30,6 +30,9 @@ class Activity:
     def __hash__(self):
         return hash(self.title)
 
+    def __eq__(self, other):
+        return self.title == other.title and self.date == other.date
+
     def __str__(self):
         return self.title
 
@@ -89,8 +92,6 @@ def ParseHtmlAndGenerateActivityTuples(html):
 
 def FNewActivitiesFound(activityset, activities):
     newactivities = set()
-
-    print(newactivities)
 
     for activity in activities:
         if activity not in activityset:
@@ -158,6 +159,7 @@ delay = raw_input('Enter the delay between pings in seconds:')
 target_email = raw_input('Enter the email to send notifications:')
 
 activityset = set()
+activities = []
 
 while True:
     print("Acquiring html data from mountaineers.org...")
