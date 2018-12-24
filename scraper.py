@@ -141,18 +141,17 @@ def SendMailForAcitivities(activities, newactivities, username, password, target
 
 # Code execution starts here
 
+username = raw_input('Enter the email to send notifications:')
+
+password = getpass.getpass('Enter your password for that email:')
+
+delay = raw_input('Enter the delay between pings in seconds:')
+
+target_email = raw_input('Enter the email to send notifications:')
+
+activityset = set()
+
 while True:
-
-    username = raw_input('Enter the email to send notifications:')
-
-    password = getpass.getpass('Enter your password for that email:')
-
-    delay = raw_input('Enter the delay between pings in seconds:')
-
-    target_email = raw_input('Enter the email to send notifications:')
-
-    activityset = set()
-
     print("Acquiring html data from mountaineers.org...")
     html = GetHtmlSource()
 
