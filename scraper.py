@@ -30,6 +30,9 @@ class Activity:
     def __hash__(self):
         return hash(self.title)
 
+    def __str__(self):
+        return self.title
+
 def GetHtmlSource():
     # Call url to get html data
     url = 'https://www.mountaineers.org/activities/activities#c4=Climbing&b_start=0&c15=For+Beginners+(Getting+Started+Series)&c15=Easy'
@@ -86,6 +89,8 @@ def ParseHtmlAndGenerateActivityTuples(html):
 
 def FNewActivitiesFound(acitivityset, activities):
     newactivities = set()
+
+    print(newactivities)
 
     for activity in activities:
         if activity not in acitivityset:
