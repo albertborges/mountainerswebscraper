@@ -106,9 +106,6 @@ def RefreshActivitySetWithActivityArray(activityset, activities):
     for activity in activities:
         activityset.add(activity)
 
-    print("POINTA")
-    print(activityset)
-
 def SendMailForAcitivities(activities, newactivities, username, password, target_email):
     try:  
         gmail_user = username 
@@ -171,17 +168,12 @@ while True:
 
         print("There were " + str(len(activities)) + " results found from parsing!")
 
-        print("POINTZ")
-        print(activityset)
         newactivities = FNewActivitiesFound(activityset, activities)
 
         print("There were " + str(len(newactivities)) + " NEW results found!")
 
         if len(newactivities) > 0:
             RefreshActivitySetWithActivityArray(activityset, activities)
-
-            print("POINTB")
-            print(activityset)
 
             print("Sending email to user to alert of new activities!")
             SendMailForAcitivities(activities, newactivities, username, password, target_email)
