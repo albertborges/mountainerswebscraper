@@ -87,13 +87,13 @@ def ParseHtmlAndGenerateActivityTuples(html):
 
     return activities
 
-def FNewActivitiesFound(acitivityset, activities):
+def FNewActivitiesFound(activityset, activities):
     newactivities = set()
 
     print(newactivities)
 
     for activity in activities:
-        if activity not in acitivityset:
+        if activity not in activityset:
             newactivities.add(activity)
 
     return newactivities
@@ -104,6 +104,9 @@ def RefreshActivitySetWithActivityArray(activityset, activities):
 
     for activity in activities:
         activityset.add(activity)
+
+    print("POINTA")
+    print(activityset)
 
 def SendMailForAcitivities(activities, newactivities, username, password, target_email):
     try:  
@@ -172,6 +175,9 @@ while True:
 
         if len(newactivities) > 0:
             RefreshActivitySetWithActivityArray(activityset, activities)
+
+            print("POINTB")
+            print(activityset)
 
             print("Sending email to user to alert of new activities!")
             SendMailForAcitivities(activities, newactivities, username, password, target_email)
