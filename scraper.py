@@ -169,6 +169,8 @@ while True:
 
         print("There were " + str(len(activities)) + " results found from parsing!")
 
+        print("POINTZ")
+        print(activityset)
         newactivities = FNewActivitiesFound(activityset, activities)
 
         print("There were " + str(len(newactivities)) + " NEW results found!")
